@@ -13,8 +13,21 @@ def getRPR(teams):
         rpr.append(t.run_pass_ratio)
     return rpr
 
+def getOline(teams):
+    oline = []
+    for team in teams:
+        t = getTeam(team = team, verbose = False)
+        oline.append(t.olineovr)
+    return oline
 
-def plot(x, y, name):
+def getRPD(teams):
+    rpd = []
+    for team in teams:
+        t = getTeam(team = team, verbose = False)
+        rpd.append(t.run_pass_defense)
+    return rpd
+
+def plot(x, y, name, minValue = 0):
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['font.sans-serif'] = 'Helvetica'
 
@@ -31,7 +44,7 @@ def plot(x, y, name):
 
     my_range=list(range(1,len(df.index)+1))
     fig, ax = plt.subplots(figsize=(5,10))
-    plt.hlines(y=my_range, xmin=.9, xmax=df[name], color='#007ACC', alpha=0.2, linewidth=5)
+    plt.hlines(y=my_range, xmin=minValue, xmax=df[name], color='#007ACC', alpha=0.2, linewidth=5)
 
     plt.plot(df[name], my_range, "o", markersize=5, color='#007ACC', alpha=0.6)
 
@@ -46,7 +59,7 @@ def plot(x, y, name):
     ax.spines['right'].set_color('none')
     ax.spines['left'].set_smart_bounds(True)
     ax.spines['bottom'].set_smart_bounds(True)
-    ax.spines['bottom'].set_position(('axes', -0.04))
+    ax.spines['bottom'].set_position(('axes', 0))
     ax.spines['left'].set_position(('axes', 0.015))
 
     filename = 'visualization/' +name + '.png'
@@ -55,8 +68,13 @@ def plot(x, y, name):
 def main():
     teams = ['ari','atl','bal','buf','car','chi','cin','cle','dal', 'den', 'det', 'gb', 'hou', 'ind','jax','kc', 'lac', 'lar', 'lv','mia','min','ne','no','nyg','nyj','phi','pit','sea','sf','tb','ten','was']
     rpr = getRPR(teams)
-    plot(teams,rpr, 'RunPassRatio')
+    plot(teams,rpr, 'RunPassRatio', .9)
 
+    oline = getOline(teams)
+    plot(teams,oline,'OffensiveLineStrength',65)
+
+    rpd = getRPD(teams)
+    plot(teams,rpd, 'RunPassDefense',.9)
 
 
 

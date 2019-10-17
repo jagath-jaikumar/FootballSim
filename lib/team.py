@@ -121,12 +121,15 @@ class Team:
         self.passovr = np.around(np.mean([x.ovr for x in self.passO]))
         self.rundef = np.around(np.mean([x.ovr for x in self.runD]))
         self.passdef = np.around(np.mean([x.ovr for x in self.passD]))
+        self.olineovr = np.around(np.mean([x.ovr for x in self.oline]))
 
         self.ovr = np.around(.4 * self.offovr + .4 * self.defovr + .2 * self.stovr, 0) 
 
 
 
         self.run_pass_ratio = 1.0 * self.runovr / self.passovr
+
+        self.run_pass_defense = 1.0 * self.rundef / self.passdef
 
     def printStats(self):
         print("STATS: ")
