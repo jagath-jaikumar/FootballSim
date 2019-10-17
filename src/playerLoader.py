@@ -23,13 +23,10 @@ def main():
         p_dic = {}
         for i in stat_names:
             p_dic[i] = row[i]
-        p = Player(p_dic)
-        players.append(p)
+        players.append(p_dic)
 
     with open('data/py_objects/M20_players.json', 'w') as f:
-        for p in players:
-            json.dump(p.stats, f, indent=4, separators=(',', ': '))
-
+            json.dump(players, f, indent=4, separators=(',', ': '),sort_keys=True)
 
 if __name__ == "__main__":
     main()
