@@ -7,7 +7,14 @@ class FootballGame:
 
         self.timeRemaining = 3600
 
-        
+
+
+        self.actions = ['run','pass']
+        #               <5         <15      >15
+        self.runPlay = ['short', 'medium','long']
+        #                <5         <20      >20
+        self.passPlay = ['short', 'medium','long']
+
 
     def play(self):
         pass
