@@ -1,16 +1,20 @@
 from lib.player import Player
 from lib.team import Team 
+from lib.football import FootballGame
 from src.generateTeam import getTeam
+
+import numpy as np
 
 
 def main():
     teamA = getTeam(verbose = False)
     teamB = getTeam(verbose = False)
 
-    if teamA.ovr > teamB.ovr:
-        print(teamA.name + " Wins!")
-    else:
-        print(teamB.name + " Wins!")
+    f = FootballGame(teamA, teamB)
+
+    f.play()
+
+    f.returnWinner()
 
 
 
