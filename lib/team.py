@@ -2,7 +2,10 @@ import numpy as np
 
 
 class Team:
-    def __init__(self, players):
+    def __init__(self, name, players):
+        self.name = name
+
+        
         self.startingRoster = {}
         self.startingRosterSpots = {}
 
@@ -88,10 +91,26 @@ class Team:
 
         self.ovr = np.around(.4 * self.offovr + .4 * self.defovr + .2 * self.stovr, 0) 
 
+
+
+    def printStats(self):
         print("STATS: ")
         print("Total Overall: " + str(self.ovr))
         print("Offense:  " + str(self.offovr))
         print("Defense: " + str(self.defovr))
         print("Special Teams: " + str(self.stovr))
+
+
+    def printLineup(self):
+        print("LINEUP: ")
+        for pos in self.offense:
+            l = self.startingRoster[pos]
+            print(pos)
+            print([x.name for x in l])
+
+        for pos in self.defense:
+            l = self.startingRoster[pos]
+            print(pos)
+            print([x.name for x in l])
                 
         
