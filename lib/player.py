@@ -6,18 +6,5 @@ class Player:
         self.position = stats['Position']
         self.ovr = stats['OVR']
     
-    # @property
-    # def name():
-    #     return self.name
-    
-    # @property
-    # def team():
-    #     return self.team
-    
-    # @property
-    # def position():
-    #     return self.position
-    
-    # @property
-    # def ovr():
-    #     return self.ovr
+    def __str__(self):
+        return self.name
