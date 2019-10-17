@@ -5,9 +5,11 @@ class Team:
     def __init__(self, name, players):
         self.name = name
 
-        
+
         self.startingRoster = {}
         self.startingRosterSpots = {}
+
+        self.schema = None
 
         self.startingRosterSpots["QB"] = 1
         self.startingRosterSpots["FB"] = 1
@@ -36,6 +38,13 @@ class Team:
 
         self.offense = ['QB', 'HB', 'FB', 'WR', 'TE', 'LT', 'LG', 'C','RG','RT']
         self.defense = ['LE', 'RE', 'DT', 'LOLB', 'MLB', 'ROLB', 'CB', 'SS', 'FS']
+
+        self.runOffense = ['HB', 'FB', 'LT', 'LG', 'C', 'RG', 'RT']
+        self.passOffense = ['QB', 'WR','TE', 'LT', 'LG', 'C', 'RG', 'RT']
+        self.offensiveline = ['LT','LG','C','RG','RT']
+        self.runDefense = ['LE','RE','DT','LOLB','ROLB','MLB']
+        self.passDefense = ['LOLB','ROLB','CB','SS','FS']
+
         self.specialTeams = ['K','P','LS']
 
         self.offovr = 0
@@ -67,11 +76,16 @@ class Team:
                 else:
                     self.startingRoster[pos] = [self.players[pos][i]]
         
-
-
         self.o = []
         self.d = []
         self.st = []
+        self.runO = []
+        self.passO = []
+        self.runD = []
+        self.passD = []
+        self.oline = []
+
+
         for pos in self.startingRoster:
             l = self.startingRoster[pos]
             if pos in self.offense:
@@ -83,15 +97,36 @@ class Team:
             if pos in self.specialTeams:
                 for i in l:
                     self.st.append(i)
-
+            if pos in self.runOffense:
+                for i in l:
+                    self.runO.append(i)
+            if pos in self.passOffense:
+                for i in l:
+                    self.passO.append(i)
+            if pos in self.runDefense:
+                for i in l:
+                    self.runD.append(i)
+            if pos in self.passDefense:
+                for i in l:
+                    self.passD.append(i)
+            if pos in self.offensiveline:
+                for i in l:
+                    self.oline.append(i)
         
         self.offovr = np.around(np.mean([x.ovr for x in self.o]))
         self.defovr = np.around(np.mean([x.ovr for x in self.d]))
         self.stovr = np.around(np.mean([x.ovr for x in self.st]))
 
+        self.runovr = np.around(np.mean([x.ovr for x in self.runO]))
+        self.passovr = np.around(np.mean([x.ovr for x in self.passO]))
+        self.rundef = np.around(np.mean([x.ovr for x in self.runD]))
+        self.passdef = np.around(np.mean([x.ovr for x in self.passD]))
+
         self.ovr = np.around(.4 * self.offovr + .4 * self.defovr + .2 * self.stovr, 0) 
 
 
+
+        self.run_pass_ratio = 1.0 * self.runovr / self.passovr
 
     def printStats(self):
         print("STATS: ")
